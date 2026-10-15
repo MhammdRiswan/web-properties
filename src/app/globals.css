@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+}
+
+/* Hide native browser clear button on search inputs — we use a custom one */
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ── Wave fill animation for CTA secondary button hover ─────────────────────
+   The fill element starts below the button and rises with a wavy top edge.
+   clip-path polygon points:
+     0% 100%  → bottom-left
+     100% 100% → bottom-right
+     100% <Y>  → right side of wave top
+     <wave points using cubic-like steps>
+     0% <Y>   → left side of wave top
+   We animate from Y=110% (fully hidden below) to Y=0% (fully covering).
+   The wave is created by a wide oversized element (150% width) that shifts
+   horizontally while rising, giving a rolling wave illusion.
+──────────────────────────────────────────────────────────────────────────── */
+@keyframes wave-fill {
+  0% {
+    transform: translateX(-25%) translateY(100%);
+  }
+  100% {
+    transform: translateX(-25%) translateY(0%);
+  }
+}
+
+@keyframes wave-roll {
+  0% {
+    transform: translateX(0%) translateY(100%);
+  }
+  100% {
+    transform: translateX(-33%) translateY(0%);
+  }
+}
+
+.btn-wave-fill,
+.btn-wave-fill-red,
+.btn-wave-fill-red-outline,
+.btn-wave-fill-dark-red {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.btn-wave-fill::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: -25%;
+  width: 150%;
+  height: 110%;
+  background: white;
+  border-radius: 55% 55% 0 0 / 40px 40px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.btn-wave-fill-red::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: -25%;
+  width: 150%;
+  height: 110%;
+  background: #dc2626; /* red-600 */
+  border-radius: 55% 55% 0 0 / 40px 40px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.group:hover .btn-wave-fill::before,
+.group:focus-visible .btn-wave-fill::before,
+.group:hover .btn-wave-fill-red::before,
+.group:focus-visible .btn-wave-fill-red::before,
+.group:hover .btn-wave-fill-red-outline::before,
+.group:focus-visible .btn-wave-fill-red-outline::before,
+.group:hover .btn-wave-fill-dark-red::before,
+.group:focus-visible .btn-wave-fill-dark-red::before {
+  transform: translateY(0%);
+}
+
+/* btn-wave-fill-red and btn-wave-fill-red-outline share the same red fill */
+.btn-wave-fill-red-outline::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: -25%;
+  width: 150%;
+  height: 110%;
+  background: #dc2626; /* red-600 */
+  border-radius: 55% 55% 0 0 / 40px 40px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Dark red wave over red-600 background — used for solid primary buttons */
+.btn-wave-fill-dark-red::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: -25%;
+  width: 150%;
+  height: 110%;
+  background: #b91c1c; /* red-700 */
+  border-radius: 55% 55% 0 0 / 40px 40px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}

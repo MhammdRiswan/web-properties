@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background rounded square -->
+  <rect width="32" height="32" rx="7" fill="#dc2626"/>
+  <!-- House icon (white) -->
+  <path d="M16 6L6 13.5V26h7v-8h6v8h7V13.5L16 6zm5 18h-3v-8h-4v8H11V14.5l5-3.75 5 3.75V24z" fill="white"/>
+</svg>
